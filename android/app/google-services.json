@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "664213996833",
+    "project_id": "flutter-questions-app",
+    "storage_bucket": "flutter-questions-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664213996833:android:80e99e378d963aa50e2a60",
+        "android_client_info": {
+          "package_name": "com.eduardosaraujo1.flutter_questions_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl2OSEjWMgmA0dQaWAQ2j-XK1hf35KY9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
