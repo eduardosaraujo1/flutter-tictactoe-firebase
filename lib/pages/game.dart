@@ -171,7 +171,7 @@ bool gameIsTie(List<String> board) {
   return !board.contains('');
 }
 
-int minmax(List<String> board, int depth, bool isMax) {
+int minmax(List<String> board, bool isMax) {
   int score = evaluate(board);
 
   if (score != 0) {
@@ -197,7 +197,7 @@ int minmax(List<String> board, int depth, bool isMax) {
     // Make the move
     board[i] = curPlayer;
     // See if the move leads to success or failure, if result is worse than previous ones discart
-    best = evalFunc(best, minmax(board, depth + 1, !isMax));
+    best = evalFunc(best, minmax(board, !isMax));
     // Unmake the move
     board[i] = '';
   }
@@ -236,7 +236,7 @@ int minmaxBestMove(List<String> board) {
     }
 
     board[i] = 'O';
-    int moveVal = minmax(board, 0, false);
+    int moveVal = minmax(board, false);
     board[i] = '';
 
     if (moveVal > bestVal) {
