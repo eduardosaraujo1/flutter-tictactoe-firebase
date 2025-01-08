@@ -26,14 +26,14 @@ class _TicTacToeState extends State<TicTacToe> {
 
   void checkWinner() {
     const winningCombinations = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
+      [0, 1, 2], // Row
+      [3, 4, 5], // Row
+      [6, 7, 8], // Row
+      [0, 3, 6], // Column
+      [1, 4, 7], // Column
+      [2, 5, 8], // Column
+      [0, 4, 8], // Diagonal
+      [2, 4, 6] // Diagonal
     ];
 
     for (var combo in winningCombinations) {
@@ -45,31 +45,21 @@ class _TicTacToeState extends State<TicTacToe> {
         } else {
           computerScore++;
         }
-        resetBoard();
+        Future.delayed(Duration(milliseconds: 500), resetBoard);
       }
     }
 
     if (!board.contains('')) {
-      resetBoard();
+      Future.delayed(Duration(milliseconds: 500), resetBoard);
     }
   }
 
   void botMove() {
-    List<int> emptySpaces = [];
-    for (int i = 0; i < board.length; i++) {
-      if (board[i] == '') {
-        emptySpaces.add(i);
-      }
-    }
-
-    if (emptySpaces.isNotEmpty) {
-      // int move = emptySpaces[Random().nextInt(emptySpaces.length)];
-      int move = minmaxBestMove(board);
-      setState(() {
-        board[move] = 'O';
-        isPlayerTurn = true;
-      });
-    }
+    int move = minmaxBestMove(board);
+    setState(() {
+      board[move] = board[move] == '' ? 'O' : board[move];
+      isPlayerTurn = true;
+    });
     checkWinner();
   }
 
@@ -215,7 +205,28 @@ int minmax(List<String> board, int depth, bool isMax) {
   return best;
 }
 
+int donotthink(board) {
+  List<int> emptySpaces = [];
+  for (int i = 0; i < board.length; i++) {
+    if (board[i] == '') {
+      emptySpaces.add(i);
+    }
+  }
+
+  if (emptySpaces.isNotEmpty) {
+    return emptySpaces[Random().nextInt(emptySpaces.length)];
+  }
+  return 0;
+}
+
 int minmaxBestMove(List<String> board) {
+  // random chance to not think
+  int dice = Random().nextInt(99) + 1; // random between 1 and 100
+  if (dice > 50) {
+    print("dice is $dice, did not think");
+    return donotthink(board);
+  }
+
   int bestVal = -1000;
   int bestMove = -1;
 
